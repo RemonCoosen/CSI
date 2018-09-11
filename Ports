@@ -1,0 +1,9 @@
+This file documents a collection of ports used by the CSI programm (as from http://git-csi.coosen.me).
+This list servers only as a quick refferance list for the ID&P/ID&s, Forensics and penterster teams.
+
+Module Name:          Port:         Found in:         Line:         Discription: 
+NODE.JS (server)      9999          genericServer.js  59            The port node.js runs on (presummed)
+YellowPages           10000         launcher.js       50            Usage unknown
+ID-Manager            10002         launcher.js       98            Usage unknown
+Access-Manager        10003         launcher.js       123           Usage unknown
+Login                 10001         launcher.js       144           Usage unknown
