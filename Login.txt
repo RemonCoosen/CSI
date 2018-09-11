@@ -8,7 +8,7 @@ To gave an example in launcher.js go to line 107 where you see the following cod
 There you can add new lines just like the follwing:
 				$.users={
 					root:$.chash('secretPassword1',$.pwhashkey),
-          admin:$.chash('secretPassword2',$.pwhashkey),
+         				admin:$.chash('secretPassword2',$.pwhashkey),
 					user:$.chash('secretPassword3',$.pwhashkey)
 				}
 For most people this change gave them an error while trying to launch using node. make sure that you commas are in the right spots.
