@@ -1,0 +1,21 @@
+The hardcoded list of users in CSI had a default user with a hardcoded password in the code (unencrypted).
+Users can be added to this list just like how you would add objects to a collection; using comma seperated lines.
+
+To gave an example in launcher.js go to line 107 where you see the following code:
+				$.users={
+					root:$.chash('secretPassword1',$.pwhashkey)
+				}
+There you can add new lines just like the follwing:
+				$.users={
+					root:$.chash('secretPassword1',$.pwhashkey),
+          admin:$.chash('secretPassword2',$.pwhashkey),
+					user:$.chash('secretPassword3',$.pwhashkey)
+				}
+For most people this change gave them an error while trying to launch using node. make sure that you commas are in the right spots.
+Next you have to exit both the launcher.js instance AND the GeneralServer.js instance and launch them again. if you did all that you'll
+see that the error is gone and you can try your new user logins on jsoneditor.html
+
+NOTE: the code as in http://git-csi.coosen.me has the following default root login
+
+USER:         PASSWORD:
+root          secretPassword1
