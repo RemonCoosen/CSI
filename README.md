@@ -1,11 +1,11 @@
-http://tess.coosen.me/
+TESS site:      http://tess.coosen.me/ 
 
-http://drive.coosen.me/
+Google Drive:   http://drive.coosen.me/
 
-http://ap3.coosen.me/
+P3CS info:      http://app3.coosen.me/
 
-http://edu.coosen.me/
+Github student: http://edu.coosen.me/
 
-http://vt01.coosen.me/
+Team discord:   http://vt01.coosen.me/
 
-http://coosen.me/
+personal github:http://coosen.me/
