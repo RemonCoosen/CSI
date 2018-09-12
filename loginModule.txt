@@ -1,4 +1,4 @@
-When you login on CSI (via the html file) you send the given login credentials; the username in password to the login modile
+When you login on CSI (via the html file) you send the given login credentials; the username in password to the login module
 on 127.0.0.1:10001/Login. you can see that this module verifys your given login info by asking the id-manager module if the 
 credentials are correct (127.0.0.1:10002/Verify). you can see in launcher.ja on line 185 that the login module communicates with the
 id-manger module.
