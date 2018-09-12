@@ -7,8 +7,8 @@ These pieces of code shows that the login module asks the id-manger to verify th
 either "OK" or "KO". this response is saved in idOK which is used to log the user in or to deny login.
 
 -----Login module-------------------------------------------------------------------------------------------
-						idOK = await $.xPOSTjson(idmngr.ip+':'+idmngr.port+'/verify/'+sess.username, 
-								ncode(JSON.stringify({pwh:pwhash}),idmngr.puk))
+		idOK = await $.xPOSTjson(idmngr.ip+':'+idmngr.port+'/verify/'+sess.username, 
+			ncode(JSON.stringify({pwh:pwhash}),idmngr.puk))
 -----Id-manager module--------------------------------------------------------------------------------------
                 return $.users.hasOwnProperty(unm) && $.users[unm]===pwh ? 'OK' : 'KO';
 ------------------------------------------------------------------------------------------------------------
