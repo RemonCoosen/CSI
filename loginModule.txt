@@ -1,0 +1,18 @@
+When you login on CSI (via the html file) you send the given login credentials; the username in password to the login modile
+on 127.0.0.1:10001/Login. you can see that this module verifys your given login info by asking the id-manager module if the 
+credentials are correct (127.0.0.1:10002/Verify). you can see in launcher.ja on line 185 that the login module communicates with the
+id-manger module.
+
+These pieces of code shows that the login module asks the id-manger to verify the credentials, the id-manger module replies with 
+either "OK" or "KO". this response is saved in idOK which is used to log the user in or to deny login.
+
+-----Login module-------------------------------------------------------------------------------------------
+						idOK = await $.xPOSTjson(idmngr.ip+':'+idmngr.port+'/verify/'+sess.username, 
+								ncode(JSON.stringify({pwh:pwhash}),idmngr.puk))
+-----Id-manager module--------------------------------------------------------------------------------------
+                return $.users.hasOwnProperty(unm) && $.users[unm]===pwh ? 'OK' : 'KO';
+------------------------------------------------------------------------------------------------------------
+
+So for quick refference, the port and subpage for each module in the login process:
+from HTML page to login handler = 127.0.0.1:10001/Login
+from login handler to id-manager= 127.0.0.1:10002/Verify
