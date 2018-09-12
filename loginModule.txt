@@ -1,5 +1,3 @@
-FILE IS CURRENTLY BEING EDITED!!!
-
 When trying to log a user in on CSI (via a HTML page for example). The page sends the credentials you've entered to the login module (on 127.0.0.1:10001/Login). This module handles the rest of the login request. It does the following:
 It it collects and sent your information (Session id and you entered username/password) and sends this to the 
 ID-manager (where in my last post I explained how to add more users). It does this with a post to 127.0.0.1:10002/Verify. the ID manager checks if the username and password combo are in the list and if that is it replies to the Login module, next the module asks the Access-Manager module if the user has the rights to login (read my other post about the accessman). If the login is correct and the user has rights the login module approves the login request.
@@ -7,7 +5,7 @@ ID-manager (where in my last post I explained how to add more users). It does th
 These pieces of code shows that the login module asks the id-manger to verify the credentials, the id-manger module replies with 
 either "OK" or "KO". this response is saved in idOK which is used to log the user in or to deny login.
 
------Login module-------------------------------------------------------------------------------------------
+-----Login module---FROM LINE: 187--------------------------------------------------------------------------
 		idOK = await $.xPOSTjson(idmngr.ip+':'+idmngr.port+'/verify/'+sess.username, 
 			ncode(JSON.stringify({pwh:pwhash}),idmngr.puk))
 -----Id-manager module--------------------------------------------------------------------------------------
@@ -41,7 +39,7 @@ the access manger replies to the post with OK or KO depending if the user has th
 At last after contacting all the modules, the login module checks the responses and based on that logs the user in
 or denies login and gives the failure reason. (such as wrong password or missing right/role/permission).
 
-----Login module--------------------------------------------------------------------------------------------
+----Login module---FROM LINE: 139----------------------------------------------------------------------------
 
 		return idOK==='KO'?
 			{error:'unamePasswordMismatch'}:
@@ -50,7 +48,9 @@ or denies login and gives the failure reason. (such as wrong password or missing
 					{sessionToken:sess.sessionToken}
 ------------------------------------------------------------------------------------------------------------
 
-
+All the modules used in the login process can be found in launcher.js.
+the line numbers can be found in the ports file on my github, it shows all module code locations and used ports.
+for smaller snipet of code from a module i added from which line on to find the snippe.t
 
 So for quick refference, the port and subpage for each module in the login process:
 from HTML page to login handler      = 127.0.0.1:10001/Login
