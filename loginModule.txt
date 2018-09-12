@@ -1,7 +1,8 @@
-When you login on CSI (via the html file) you send the given login credentials; the username in password to the login module
-on 127.0.0.1:10001/Login. you can see that this module verifys your given login info by asking the id-manager module if the 
-credentials are correct (127.0.0.1:10002/Verify). you can see in launcher.ja on line 185 that the login module communicates with the
-id-manger module.
+FILE IS CURRENTLY BEING EDITED!!!
+
+When trying to log a user in on CSI (via a HTML page for example). The page sends the credentials you've entered to the login module (on 127.0.0.1:10001/Login). This module handles the rest of the login request. It does the following:
+It it collects and sent your information (Session id and you entered username/password) and sends this to the 
+ID-manager (where in my last post I explained how to add more users). It does this with a post to 127.0.0.1:10002/Verify. the ID manager checks if the username and password combo are in the list and if that is it replies to the Login module, next the module asks the Access-Manager module if the user has the rights to login (read my other post about the accessman). If the login is correct and the user has rights the login module approves the login request.
 
 These pieces of code shows that the login module asks the id-manger to verify the credentials, the id-manger module replies with 
 either "OK" or "KO". this response is saved in idOK which is used to log the user in or to deny login.
@@ -12,6 +13,11 @@ either "OK" or "KO". this response is saved in idOK which is used to log the use
 -----Id-manager module--------------------------------------------------------------------------------------
                 return $.users.hasOwnProperty(unm) && $.users[unm]===pwh ? 'OK' : 'KO';
 ------------------------------------------------------------------------------------------------------------
+
+After contacting the id-manager the login module also contacts the accessmngr
+
+
+
 
 So for quick refference, the port and subpage for each module in the login process:
 from HTML page to login handler = 127.0.0.1:10001/Login
