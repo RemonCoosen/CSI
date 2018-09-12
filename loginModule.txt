@@ -14,11 +14,45 @@ either "OK" or "KO". this response is saved in idOK which is used to log the use
                 return $.users.hasOwnProperty(unm) && $.users[unm]===pwh ? 'OK' : 'KO';
 ------------------------------------------------------------------------------------------------------------
 
-After contacting the id-manager the login module also contacts the accessmngr
+After contacting the id-manager the login module also contacts the accessmngr. in short it asks the Access-manager what the
+users roles/permissions are, for example to login on the webpage the user needs to have the login role/permission.
 
+This is an example on how the roles look and how you would add a role; e.g. the admin user has the login role.
+
+-----Access-manager module---FROM LINE: 132--------------------------------------------------------------------
+				$.rights={
+					root:['login','appstore'],
+					admin:['login']
+				}
+------------------------------------------------------------------------------------------------------------
+				
+This piece of code checks if the given user (supplied in the POST request) has the required right/role/permission.
+(the required role is also supplied in the POST request)
+
+the access manger replies to the post with OK or KO depending if the user has the right/role/permission.
+
+-----Access-manager module---FROM LINE: 139-----------------------------------------------------------------				
+		var unm = $.PATH.unm,
+			info = $.BODY,
+			right = info.right;
+		return $.rights.hasOwnProperty(unm) && $.rights[unm].includes(right) ? 'OK' : 'KO';
+------------------------------------------------------------------------------------------------------------
+
+At last after contacting all the modules, the login module checks the responses and based on that logs the user in
+or denies login and gives the failure reason. (such as wrong password or missing right/role/permission).
+
+----Login module--------------------------------------------------------------------------------------------
+
+		return idOK==='KO'?
+			{error:'unamePasswordMismatch'}:
+				accsOK==='OK'?
+					{error:'noLoginRights'}:
+					{sessionToken:sess.sessionToken}
+------------------------------------------------------------------------------------------------------------
 
 
 
 So for quick refference, the port and subpage for each module in the login process:
-from HTML page to login handler = 127.0.0.1:10001/Login
-from login handler to id-manager= 127.0.0.1:10002/Verify
+from HTML page to login handler      = 127.0.0.1:10001/Login
+from login handler to id-manager     = 127.0.0.1:10002/Verify
+from login handler to access-manager = 127.0.0.1:10003/Verify
