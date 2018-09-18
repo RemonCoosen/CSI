@@ -7,6 +7,8 @@ nt.xPOSTjson('localhost:9999/create',
 			port: 10004,                               //Use a port that isnt used already!
 			version: 1,                                //Version can be whatever.
 			init: () => { $.trace(1,'IDS$init:1')
+			console.log('login$a: 1'),
+				$.xPOSTjson('localhost:10000/provide',{port:$.port, srvc:'IDS'})
 			},
 			POST: {
 				fulfil: ($) => { $.trace(1,'IDS$fulfil:1')
