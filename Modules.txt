@@ -1,0 +1,44 @@
+Below is an example of how to add your own module. if you were to add this piece of code to launcher.js, it would show up on the
+genericServer.js and it would run its init code. also it can be talked to using HTTP-POST on IP:PORT/POSTSFUNCTION (localhost:10004/IDS).
+
+===== NEW MODULE CODE ==================== add this to launcher.js =======================================
+nt.xPOSTjson('localhost:9999/create',
+		`{	name: 'IDS',                              //Give it a unique name.
+			port: 10004,                               //Use a port that isnt used already!
+			version: 1,                                //Version can be whatever.
+			init: () => { $.trace(1,'IDS$init:1')
+			},
+			POST: {
+				fulfil: ($) => { $.trace(1,'IDS$fulfil:1')
+					$[$.BODY.srvc] = $.BODY;
+				},
+				keyExchange: ($) => {  $.trace(1,'IDS$keyExchange:1')
+					var sessionID = $.BODY.sessionID,
+						privateSecret = $.secret(),
+						publicSecret = $.BODY.publicSecret,
+						sharedSecret = $.chash($.BODY.halfSecret,privateSecret),
+						otherHalfSecret = $.chash(publicSecret,privateSecret),
+						session = {
+							privateSecret:privateSecret,
+							sharedSecret:sharedSecret,
+							sessionID:sessionID
+						}
+					$.sessions[sessionID] = session;
+					return {halfSecret:otherHalfSecret};
+				}
+			},
+			POSTS: {                                //Add respone functions here.
+				"IDS/{sid}": async ($) => {   $.trace(1,'IDS$Log/{sid}:1') //Respone function, it can be reaced at localhost:10004/IDS
+						
+					return 0;
+				}
+			},
+		}`)
+	.then(nt.expect(/^SubServer.*$/,'Start a Subserver'))
+  =============================================================================================================
+  
+  What the POST section does is not 100% known to me, feel free to add your comments on what this section is for.
+  i THINK it is run when the module starts (as part of the init), and posts all this info to the genericServer.
+  (If you were to add console.log("TEST INIT IN MODULE"); it wil show TEST INIT MODULE in the genericServer terminal window).
+  
+  The (private and public) keys are mentioned in the nocrypto.js file.
