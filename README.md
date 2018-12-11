@@ -1,3 +1,5 @@
+DOMAIN DISABLED, URLS NO LONGER WORK!
+
 TESS site:      http://tess.coosen.me/ 
 
 Google Drive:   http://drive.coosen.me/
